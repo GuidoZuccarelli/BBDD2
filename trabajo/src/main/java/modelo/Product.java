@@ -2,7 +2,14 @@ package modelo;
 
 public class Product {
 	private long id;
+	private String productId;
 	
+	public String getProductId() {
+		return productId;
+	}
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
 	public long getId() {
 		return id;
 	}

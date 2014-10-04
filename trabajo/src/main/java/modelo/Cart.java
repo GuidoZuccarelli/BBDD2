@@ -3,20 +3,19 @@ package modelo;
 import java.util.Timer;
 
 public class Cart {
+	
 	private long id;
-	public long getId() {
-		return id;
-	}
+	private String userId;
+	private String token;
+	private Timer creationTime;
+	private Product products;
+	private Site site;
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -35,15 +34,23 @@ public class Cart {
 	public void setCreationTime(Timer creationTime) {
 		this.creationTime = creationTime;
 	}
-
-	private int userId;
-	private String token;
-	private Timer creationTime;
-	private Product products;
-	private Site site;
 	
 	public Cart(){
 		products = new Product();
 		site = new Site();
 	}
+	
+	  /**
+	   * Creates a cart with a user and a site assigned.
+	   * The cart will have an unique token.
+	   */
+	
+	  public Cart(String user, Site site) {
+		    this();
+		    this.userId = user;
+		    this.site = site;
+	  }
+	  
+	  
+	
 }
