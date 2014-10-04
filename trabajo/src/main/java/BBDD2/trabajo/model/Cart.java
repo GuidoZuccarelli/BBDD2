@@ -1,4 +1,4 @@
-package modelo;
+package BBDD2.trabajo.model;
 
 import java.util.Timer;
 

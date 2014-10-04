@@ -1,4 +1,4 @@
-package modelo;
+package BBDD2.trabajo.model;
 
 public class Site {
 private long id;
