@@ -1,8 +1,12 @@
 package BBDD2.trabajo.model;
 
+import org.json.simple.JSONObject;
+
 public class Product {
 	private long id;
 	private String productId;
+	private int quantity;
+	private double price;
 	
 	public String getProductId() {
 		return productId;
@@ -20,7 +24,7 @@ public class Product {
 		return quantity;
 	}
 	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+		this.quantity = quantity > 0 ? quantity : 0;
 	}
 	public double getPrice() {
 		return price;
@@ -28,6 +32,28 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	private int quantity;
-	private double price;
+	public Product() {
+		super();
+	}
+	public Product(String productId, int quantity, double price) {
+		super();
+		this.productId = productId;
+		this.quantity = quantity;
+		this.price = price;
+	}
+	
+	public Product(String productId, double price) {
+		super();
+		this.productId = productId;
+		this.quantity = 0;
+		this.price = price;
+	}
+	
+	public JSONObject toJSONObject(){
+		JSONObject object = new JSONObject();
+		object.put("product-id", this.productId);
+		object.put("price", this.price);
+		object.put("quantity", this.quantity);
+		return object;
+	}
 }
