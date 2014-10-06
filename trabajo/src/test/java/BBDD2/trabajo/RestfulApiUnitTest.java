@@ -51,10 +51,10 @@ public class RestfulApiUnitTest {
 		post("/rest/carts/"+cartToken+"/products/product1?price=10").then().assertThat().statusCode(201); //Create a product in the cart
 		post("/rest/carts/"+cartToken+"/products/product2").then().assertThat().statusCode(400).and().body(equalTo("The price of the product is needed")); //Try to create a product without the price
 		get("/rest/carts/"+cartToken+"/products/product1").then().assertThat().body("quantity", equalTo("1")); //Get the product of the cart
-		put("/rest/carts/"+cartToken+"/products/product1?price=20&quantity=4"); //Change the price and quantity of the product
-		get("/rest/carts/"+cartToken).then().assertThat().body("products[0].price", equalTo("20"), "products[0].quantity", equalTo("4"));
+		put("/rest/carts/"+cartToken+"/products/product1?price=20&quantity=4"); //Change the price and adds 4 quantity of the product
+		get("/rest/carts/"+cartToken).then().assertThat().body("products[0].price", equalTo("20"), "products[0].quantity", equalTo("5"));
 		put("/rest/carts/"+cartToken+"/products/product1"); //Add 1 to the product quantity
-		get("/rest/carts/"+cartToken+"/products/product1").then().assertThat().body("quantity", equalTo("5")); //Get the product of the cart
+		get("/rest/carts/"+cartToken+"/products/product1").then().assertThat().body("quantity", equalTo("6")); //Get the product of the cart
 		get("/rest/carts/"+cartToken+"/products/product2").then().assertThat().statusCode(400).and().assertThat().body(equalTo("Product not found")); //Try to get a non-existing product
 		post("/rest/carts/"+cartToken+"/products/product2?price=20"); //Add a product to the cart
 		get("/rest/carts/"+cartToken).then().assertThat().body("products", hasSize(2), "total", equalTo("120")); //Checks the values of the cart
