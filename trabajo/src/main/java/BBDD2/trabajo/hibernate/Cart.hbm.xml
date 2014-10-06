@@ -14,6 +14,10 @@
 
 </id>
 
+<property name="userId"/>
+<property name="token"/>
+<property name="creationTime"/>
+
 <many-to-one name="site"
 column="ID_SITE"
 not-null="true“

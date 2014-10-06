@@ -23,6 +23,10 @@ public Set<Cart> getCarts() {
     getCarts().add(cart);
   }
   
+  public void addCarts(HashSet<Cart> carts) {
+	    this.carts = carts;
+  }
+  
   public void removeCart(Cart cart) {
     getCarts().remove(cart);
   }
@@ -38,6 +42,9 @@ public Set<Cart> getCarts() {
 	  sites.add(new Site(name));
 	  return true;
   }
+  public void addSites(HashSet<Site> sites) {
+	    this.sites = sites;
+}
   
   public String getSiteToken(String name){
 	  for (Site site : this.sites)

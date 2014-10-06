@@ -14,6 +14,10 @@
 
 </id>
 
+<property name="productId"/>
+<property name="quantity"/>
+<property name="price"/>
+
 </class>
 
 </hibernate-mapping>

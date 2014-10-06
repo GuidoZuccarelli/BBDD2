@@ -40,6 +40,10 @@ public class Cart {
 	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
+	
+	public void setSite(Site site) {
+		this.site = site;
+	}
 
 	public Cart(String userId, Site site) {
 		super();
@@ -63,6 +67,10 @@ public class Cart {
 				  return false;
 		  products.add(new Product(productId, 1, price));
 		  return true;
+	}
+	
+	public void addProducts(Set<Product> products){
+		this.products = products;
 	}
 	
 	public void deleteProduct(String productId) {

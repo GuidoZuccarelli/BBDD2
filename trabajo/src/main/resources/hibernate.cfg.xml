@@ -9,11 +9,11 @@
 
 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
-<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bbdd2_23_Set_C</property>
+<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bbdd2_trabajo</property>
 
 <property name="hibernate.connection.username">root</property>
 
-<property name="hibernate.connection.password">root</property>
+<property name="hibernate.connection.password">SeBa.43y186</property>
 
 <property name="hibernate.connection.pool_size">10</property>
 
@@ -23,15 +23,13 @@
 
 <property name="hibernate.current_session_context_class">thread</property>
 
-<mapping resource="hibernate/Empleado.hbm.xml"/>
+<mapping resource="hibernate/Cart.hbm.xml"/>
 
-<mapping resource="hibernate/Mudanza.hbm.xml"/>
+<mapping resource="hibernate/Master.hbm.xml"/>
 
-<mapping resource="hibernate/EmpresaDeMudanzas.hbm.xml"/>
+<mapping resource="hibernate/Product.hbm.xml"/>
 
-<mapping resource="hibernate/TablaPorCadaClase/RolEmpleado.hbm.xml"/>
-
-<mapping resource="hibernate/TablaPorCadaClase/Transporte.hbm.xml"/>
+<mapping resource="hibernate/Site.hbm.xml"/>
 
     </session-factory>
 
