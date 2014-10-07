@@ -88,6 +88,23 @@ public class CartsRestfulAPI {
 		try{
 			return Response.ok().entity(this.container.getMaster().getCart(cartToken).toJSONObject().toJSONString()).build();
 		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Cart not found").build();
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{carttoken}/products/{productid}")
+	public Response getCart(@PathParam("carttoken") String cartToken, @PathParam("productid") String productId){
+		Cart cart;
+		try{
+			cart = this.container.getMaster().getCart(cartToken);
+		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Cart not found").build();
+		}
+		try{
+			return Response.ok().entity(cart.getProduct(productId)).build();
+		}catch(NoSuchElementException e){
 			return Response.status(400).entity("Product not found").build();
 		}
 	}

@@ -73,6 +73,13 @@ public class Cart {
 		this.products = products;
 	}
 	
+	public Product getProduct(String productId){
+		for (Product product : this.products)
+			  if(product.getProductId().equals(productId))
+				  return product;
+		throw new NoSuchElementException();
+	}
+	
 	public void deleteProduct(String productId) {
 		  for (Product product : this.products)
 			  if(product.getProductId().equals(productId)){
