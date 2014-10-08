@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-
-<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN">
-
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="BBDD2.trabajo.model">
 
 
@@ -20,7 +20,7 @@
 
 <many-to-one name="site"
 column="ID_SITE"
-not-null="true“
+not-null="true"
 cascade="all"/>
 
 

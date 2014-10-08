@@ -68,6 +68,8 @@ public class Persistir {
 			Site site1 = new Site("Home");
 			// Creo vinculo entre site y cart
 			cart1.setSite(site1);
+			cart2.setSite(site1);
+			cart3.setSite(site1);
 			// Se agregan productos
 			HashSet<Product> products = new HashSet<Product>();
 			products.add(producto1);

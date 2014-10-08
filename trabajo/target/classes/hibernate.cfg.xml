@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
 
-    <session-factory>
+<session-factory>
 
 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
@@ -31,7 +31,6 @@
 
 <mapping resource="hibernate/Site.hbm.xml"/>
 
-    </session-factory>
+</session-factory>
 
-</hibernate-configuration
->
+</hibernate-configuration>

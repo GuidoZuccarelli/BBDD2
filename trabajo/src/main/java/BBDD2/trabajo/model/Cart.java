@@ -11,11 +11,31 @@ import org.json.simple.JSONObject;
 public class Cart {
 	
 	private long id;
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	private String userId;
 	private String token;
 	private long creationTime;
 	private Set<Product> products;
 	private Site site;
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public Site getSite() {
+		return site;
+	}
 
 	public String getUserId() {
 		return userId;
