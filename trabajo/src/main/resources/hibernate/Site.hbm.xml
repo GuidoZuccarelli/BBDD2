@@ -3,21 +3,18 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping package="BBDD2.trabajo.model">
 
+	<class name="Site">
 
-<class name="Site">
+		<id name="id" column="ID_SITE" type="long">
+			<generator class="increment"/>
+		</id>
 
+		<property name="name"/>
+		<property name="token"/>
 
-<id name="id" column="ID_SITE" type="long">
-
-<generator class="increment"/>
-
-</id>
-
-<property name="name"/>
-<property name="token"/>
-
-</class>
+	</class>
 
 </hibernate-mapping>

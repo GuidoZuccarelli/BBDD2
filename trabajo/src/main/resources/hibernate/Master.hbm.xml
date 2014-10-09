@@ -3,35 +3,25 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping package="BBDD2.trabajo.model">
 
+	<class name="Master">
 
-<class name="Master">
+		<id name="id" column="ID_MASTER" type="long">
+			<generator class="increment"/>
+		</id>
 
+		<set name="sites" cascade="all">
+			<key column="ID_MASTER" not-null="true"/>
+			<one-to-many class="Site"/>
+		</set>
 
-<id name="id" column="ID_MASTER" type="long">
+		<set name="carts" cascade="all">
+			<key column="ID_MASTER" not-null="true"/>
+			<one-to-many class="Cart"/>
+		</set>
 
-<generator class="increment"/>
-
-</id>
-
-
-<set name="sites" cascade="all">
-
-<key column="ID_MASTER" not-null="true"/>
-
-<one-to-many class="Site"/>
-
-</set>
-
-<set name="carts" cascade="all">
-
-<key column="ID_MASTER" not-null="true"/>
-
-<one-to-many class="Cart"/>
-
-</set>
-
-</class>
+	</class>
 
 </hibernate-mapping>

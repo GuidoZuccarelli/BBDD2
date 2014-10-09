@@ -2,36 +2,30 @@
 <!DOCTYPE hibernate-mapping PUBLIC
 "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
 <hibernate-mapping package="BBDD2.trabajo.model">
 
+	<class name="Cart">
 
-<class name="Cart">
+		<id name="id" column="ID_CART" type="long">
+			<generator class="increment"/>
+		</id>
 
+		<property name="userId"/>
+		<property name="token"/>
+		<property name="creationTime"/>
 
-<id name="id" column="ID_CART" type="long">
-
-<generator class="increment"/>
-
-</id>
-
-<property name="userId"/>
-<property name="token"/>
-<property name="creationTime"/>
-
-<many-to-one name="site"
-column="ID_SITE"
-not-null="true"
-cascade="all"/>
+		<many-to-one name="site"
+		column="ID_SITE"
+		not-null="true"
+		cascade="all"/>
 
 
-<set name="products" cascade="all">
+		<set name="products" cascade="all">
+			<key column="ID_CART" not-null="true"/>
+			<one-to-many class="Product"/>
+		</set>
 
-<key column="ID_CART" not-null="true"/>
-
-<one-to-many class="Product"/>
-
-</set>
-
-</class>
+	</class>
 
 </hibernate-mapping>

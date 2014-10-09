@@ -11,6 +11,12 @@ import org.json.simple.JSONObject;
 public class Cart {
 	
 	private long id;
+	private String userId;
+	private String token;
+	private long creationTime;
+	private Set<Product> products;
+	private Site site;
+	
 	public long getId() {
 		return id;
 	}
@@ -18,12 +24,6 @@ public class Cart {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	private String userId;
-	private String token;
-	private long creationTime;
-	private Set<Product> products;
-	private Site site;
 
 	public Set<Product> getProducts() {
 		return products;
