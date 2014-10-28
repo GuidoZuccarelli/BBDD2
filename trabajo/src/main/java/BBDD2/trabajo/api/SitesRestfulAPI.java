@@ -2,6 +2,7 @@ package BBDD2.trabajo.api;
 
 import java.util.NoSuchElementException;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,6 +50,17 @@ public class SitesRestfulAPI {
 			return Response.ok(container.getMaster().getSiteToken(name)).build();
 		}catch(NoSuchElementException e){
 			return Response.status(400).entity("Sitename not found").build();
+		}
+	}
+	
+	@DELETE
+	@Path("/{sitetoken}")
+	public Response deleteSite(@PathParam("sitetoken") String token){
+		try {
+			container.getMaster().removeSite(token);
+			return Response.ok().build();
+		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Site not found").build();
 		}
 	}
 }

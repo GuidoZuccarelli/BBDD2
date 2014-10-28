@@ -95,7 +95,7 @@ public class Cart {
 	
 	public Product getProduct(String productId){
 		for (Product product : this.products)
-			  if(product.getProductId().equals(productId))
+			if(product.getProductId().equals(productId))
 				  return product;
 		throw new NoSuchElementException();
 	}
@@ -137,7 +137,7 @@ public class Cart {
 		  throw new NoSuchElementException();
 	}
 
-	public void updateProduct(String productId, float price){
+	public void updateProduct(String productId, double price){
 		for (Product product : this.products)
 			  if(product.getProductId().equals(productId)){
 				  product.setPrice(price);
@@ -148,12 +148,16 @@ public class Cart {
 	
 	public JSONObject toJSONObject(){
 		JSONObject object = new JSONObject();
-		object.put("user-id", this.userId);
-		object.put("siteurl", this.site);
+		object.put("userid", this.userId);
+		object.put("siteurl", this.site.getName());
 		JSONArray products = new JSONArray();
-		for (Product product : this.products)
+		double sum = 0;
+		for (Product product : this.products){
 			products.add(product.toJSONObject());
+			sum += product.getPrice();
+		}
 		object.put("products", products);
+		object.put("total", String.valueOf(sum));
 		return object;
 	}
 }

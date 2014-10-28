@@ -30,7 +30,7 @@ public class CartsRestfulAPI {
 
 	@POST
 	@Path("/{carttoken}/products/{productid}")
-	public Response addCart(@PathParam("carttoken") String cartToken, @PathParam("productId") String productId, @QueryParam("price") Long price){
+	public Response addProduct(@PathParam("carttoken") String cartToken, @PathParam("productid") String productId, @QueryParam("price") Long price){
 		Cart cart;
 		try {
 			cart = this.container.getMaster().getCart(cartToken);
@@ -38,11 +38,12 @@ public class CartsRestfulAPI {
 			return Response.status(402).entity("Cart token doesn't exists").build();
 		}
 		if (price != null){
+			System.out.println("Producto = "+productId);
 			if (price < 0)
 				return Response.status(401).entity("Price cannot be negative").build();
 			else
 				if (cart.addProduct(productId, price))
-					return Response.ok().build();
+					return Response.status(201).build();
 				else 
 					return Response.status(412).entity("Product already exists").build();
 		}
@@ -51,7 +52,7 @@ public class CartsRestfulAPI {
 	
 	@PUT
 	@Path("/{carttoken}/products/{productid}")
-	public Response updateProduct(@PathParam("carttoken") String cartToken, @PathParam("productId") String productId, @QueryParam("price") Long price, @QueryParam("quantity") Integer quantity){
+	public Response updateProduct(@PathParam("carttoken") String cartToken, @PathParam("productid") String productId, @QueryParam("price") Long price, @QueryParam("quantity") Integer quantity){
 		Cart cart;
 		try {
 			cart = this.container.getMaster().getCart(cartToken);
@@ -62,7 +63,7 @@ public class CartsRestfulAPI {
 			if (price < 0)
 				return Response.status(401).entity("Price cannot be negative").build();
 			else 
-				if(quantity != null)
+				if(quantity == null)
 					try{
 						cart.updateProduct(productId, price);
 						return Response.ok().build();
@@ -77,7 +78,14 @@ public class CartsRestfulAPI {
 						return Response.status(400).entity("Product not found").build();
 					}
 		}
-		return Response.status(400).entity("The price of the product is needed").build();
+		if(quantity == null)
+			quantity = 1;
+		try{
+			cart.updateProduct(productId, quantity);
+		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Product not found").build();
+		}
+		return Response.ok().build();
 	}
 	
 	
@@ -92,6 +100,7 @@ public class CartsRestfulAPI {
 		}
 	}
 	
+	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{carttoken}/products/{productid}")
@@ -103,9 +112,37 @@ public class CartsRestfulAPI {
 			return Response.status(400).entity("Cart not found").build();
 		}
 		try{
-			return Response.ok().entity(cart.getProduct(productId)).build();
+			return Response.ok().entity(cart.getProduct(productId).toJSONObject()).build();
 		}catch(NoSuchElementException e){
 			return Response.status(400).entity("Product not found").build();
 		}
+	}
+	
+	@DELETE
+	@Path("/{carttoken}")
+	public Response deleteCart(@PathParam("carttoken") String cartToken){
+		try{
+			this.container.getMaster().removeCart(cartToken);
+			return Response.status(204).build();
+		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Cart not found").build();
+		}
+	}
+	
+	@DELETE
+	@Path("/{carttoken}/products/{productid}")
+	public Response deleteProduct(@PathParam("carttoken") String cartToken, @PathParam("productid") String productId){
+		Cart cart;
+		try{
+			cart = this.container.getMaster().getCart(cartToken);
+		}catch(NoSuchElementException e){
+			return Response.status(401).entity("Cart not found").build();
+		}
+		try{
+			cart.deleteProduct(productId);
+		}catch(NoSuchElementException e){
+			return Response.status(400).entity("Product not found").build();
+		}
+		return Response.status(204).build();
 	}
 }

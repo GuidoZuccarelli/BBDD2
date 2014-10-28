@@ -51,9 +51,9 @@ public class Product {
 	
 	public JSONObject toJSONObject(){
 		JSONObject object = new JSONObject();
-		object.put("product-id", this.productId);
-		object.put("price", this.price);
-		object.put("quantity", this.quantity);
+		object.put("productid", this.productId);
+		object.put("price", String.valueOf(this.price));
+		object.put("quantity", String.valueOf(this.quantity));
 		return object;
 	}
 }

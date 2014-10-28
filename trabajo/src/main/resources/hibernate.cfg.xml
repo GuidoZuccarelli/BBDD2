@@ -11,9 +11,11 @@
 
 <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bbdd2_trabajo</property>
 
+<property name="hbm2ddl.auto">create</property>
+
 <property name="hibernate.connection.username">root</property>
 
-<property name="hibernate.connection.password">SeBa.43y186</property>
+<property name="hibernate.connection.password">root</property>
 
 <property name="hibernate.connection.pool_size">10</property>
 

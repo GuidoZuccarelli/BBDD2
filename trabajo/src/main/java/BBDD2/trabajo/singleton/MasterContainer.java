@@ -1,7 +1,9 @@
 package BBDD2.trabajo.singleton;
 
+import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
 import BBDD2.trabajo.hibernate.Hbutil;
 import BBDD2.trabajo.model.Master;
 
@@ -23,6 +25,12 @@ public class MasterContainer {
 				tx = session.beginTransaction();
 				long id = 1;
 				instance = new MasterContainer((Master)session.get(Master.class, id));
+				if (instance.getMaster() == null){
+					Master master = new Master();
+					master.setId(1);
+					instance = new MasterContainer(master);
+					session.replicate(master, ReplicationMode.EXCEPTION);
+				}
 				tx.commit();
 			}catch (Exception e){
 				e.printStackTrace();

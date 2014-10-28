@@ -23,6 +23,8 @@
 	<classpathentry kind="var" path="M2_REPO/com/jayway/restassured/rest-assured-common/2.3.3/rest-assured-common-2.3.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/jayway/restassured/xml-path/2.3.3/xml-path-2.3.3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/mysql/mysql-connector-java/5.1.33/mysql-connector-java-5.1.33.jar"/>
+	<classpathentry kind="var" path="M2_REPO/com/owlike/genson/1.1/genson-1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-search/5.0.0.Alpha6/hibernate-search-5.0.0.Alpha6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-search-orm/5.0.0.Alpha6/hibernate-search-orm-5.0.0.Alpha6.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/hibernate/hibernate-search-engine/5.0.0.Alpha6/hibernate-search-engine-5.0.0.Alpha6.jar"/>
@@ -60,6 +62,5 @@
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/hk2/osgi-resource-locator/1.0.1/osgi-resource-locator-1.0.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/glassfish/jersey/core/jersey-client/2.7/jersey-client-2.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/Users/Sebastian/workspace/ProyectoBD/lib/mysql-connector-java-5.1.19-bin.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
