@@ -7,28 +7,25 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import BBDD2.trabajo.model.Site;
-import BBDD2.trabajo.singleton.MasterContainer;
+import service.MasterService;
+import BBDD2.trabajo.singleton.ServiceFactory;
 
 
 @Path("/sites")
 public class SitesRestfulAPI {
 
-	MasterContainer container;
+	private MasterService service;
 	
 	public SitesRestfulAPI(){
-		this.container = MasterContainer.getInstance();
+		this.service = ServiceFactory.getMasterService();
 	}
 	
 	@POST
 	@Path("/{sitename}")
 	public Response addSite(@PathParam("sitename") String name){
-		if (container.getMaster().addSite(name))
+		if (this.service.addSite(name))
 			return Response.status(201).build();
 		return Response.status(412).entity("Sitename already exists").build();
 	}
@@ -37,7 +34,7 @@ public class SitesRestfulAPI {
 	@Path("/{sitetoken}/carts/{userid}")
 	public Response addCart(@PathParam("sitetoken") String sitetoken, @PathParam("userid") String userId){
 		try{
-			return Response.status(201).entity(this.container.getMaster().addCart(sitetoken, userId)).build();
+			return Response.status(201).entity(this.service.addCart(sitetoken, userId)).build();
 		}catch (NoSuchElementException e){
 			return Response.status(412).entity("Site token doesn't exists").build();
 		}
@@ -47,7 +44,7 @@ public class SitesRestfulAPI {
 	@Path("/{sitename}")
 	public Response getSite(@PathParam("sitename") String name){
 		try {
-			return Response.ok(container.getMaster().getSiteToken(name)).build();
+			return Response.ok(this.service.getSite(name)).build();
 		}catch(NoSuchElementException e){
 			return Response.status(400).entity("Sitename not found").build();
 		}
@@ -57,7 +54,7 @@ public class SitesRestfulAPI {
 	@Path("/{sitetoken}")
 	public Response deleteSite(@PathParam("sitetoken") String token){
 		try {
-			container.getMaster().removeSite(token);
+			this.service.deleteSite(token);
 			return Response.ok().build();
 		}catch(NoSuchElementException e){
 			return Response.status(400).entity("Site not found").build();

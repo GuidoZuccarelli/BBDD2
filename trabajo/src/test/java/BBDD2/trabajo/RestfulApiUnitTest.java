@@ -1,13 +1,9 @@
 package BBDD2.trabajo;
 
 
-import org.json.simple.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.jayway.restassured.builder.MultiPartSpecBuilder;
-import com.jayway.restassured.specification.MultiPartSpecification;
 
 import static com.jayway.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
@@ -21,11 +17,12 @@ public class RestfulApiUnitTest {
 	public void setUp(){
 		post("/rest/utils");
 		exampleSiteToken = get("/rest/sites/exampleSite").asString();
+		put("/rest/utils/time/120000");
 	}
 	
 	@After
 	public void tearDownTheWall(){
-		delete("/rest/utils");
+		//delete("/rest/utils");
 	}
 	
 	@Test
@@ -48,8 +45,8 @@ public class RestfulApiUnitTest {
 	
 	@Test
 	public void testAddGetAndDeleteProducts() throws InterruptedException{
-		long time = System.currentTimeMillis();
 		String cartToken = post("/rest/sites/"+exampleSiteToken+"/carts/user1").asString(); //Create another cart and get the token
+		long time = System.currentTimeMillis();
 		post("/rest/carts/"+cartToken+"/products/product1?price=10").then().assertThat().statusCode(201); //Create a product in the cart
 		post("/rest/carts/"+cartToken+"/products/product2").then().assertThat().statusCode(400).and().body(equalTo("The price of the product is needed")); //Try to create a product without the price
 		get("/rest/carts/"+cartToken+"/products/product1").then().assertThat().body("quantity", equalTo("1")); //Get the product of the cart

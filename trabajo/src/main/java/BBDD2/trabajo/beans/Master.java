@@ -1,14 +1,17 @@
-package BBDD2.trabajo.model;
+package BBDD2.trabajo.beans;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+
+import javax.naming.TimeLimitExceededException;
 
 public class Master {
 
 	private long id;
 	private Set<Cart> carts;
 	private Set<Site> sites;
+	private long timeLimit;
 
 	public long getId() {
 		return id;
@@ -16,6 +19,14 @@ public class Master {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public long getTimeLimit() {
+		return timeLimit;
+	}
+
+	public void setTimeLimit(long timeLimit) {
+		this.timeLimit = timeLimit;
 	}
 
 	public void setCarts(Set<Cart> carts) {
@@ -93,10 +104,13 @@ public class Master {
 	}
 
 
-	public Cart getCart(String token){
+	public Cart getCart(String token) throws TimeLimitExceededException{
 		for (Cart cart : this.carts)
 			if(cart.getToken().equals(token))
-				return cart;
+				if (cart.getCreationTime() < (System.currentTimeMillis()-timeLimit))
+						return cart;
+				else
+					throw new TimeLimitExceededException();
 		throw new NoSuchElementException();
 	}
 

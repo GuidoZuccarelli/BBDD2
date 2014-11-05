@@ -18,7 +18,8 @@ public class Hbutil {
     }
 
     public static SessionFactory getSessionFactory() {
-        return configureSessionFactory();
-
+        if (sessionFactory == null)
+        	configureSessionFactory();
+        return sessionFactory;
     }
 }

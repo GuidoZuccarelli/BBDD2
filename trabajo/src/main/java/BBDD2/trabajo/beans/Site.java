@@ -1,4 +1,4 @@
-package BBDD2.trabajo.model;
+package BBDD2.trabajo.beans;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package BBDD2.trabajo.model;
+package BBDD2.trabajo.beans;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -81,7 +81,7 @@ public class Cart {
 		this.products = new HashSet<Product>();
 	}
 
-	public boolean addProduct(String productId, float price){
+	public boolean addProduct(String productId, double price){
 		for (Product product : this.products)
 			  if(product.getProductId().equals(productId))
 				  return false;
@@ -118,7 +118,7 @@ public class Cart {
 		  throw new NoSuchElementException();
 	  }
 	
-	public void updateProduct(String productId, int quantity, float price){
+	public void updateProduct(String productId, int quantity, double price){
 		for (Product product : this.products)
 			  if(product.getProductId().equals(productId)){
 				  product.setQuantity(product.getQuantity()+quantity);

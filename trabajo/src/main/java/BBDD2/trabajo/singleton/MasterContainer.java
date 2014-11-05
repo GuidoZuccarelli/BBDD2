@@ -1,11 +1,7 @@
 package BBDD2.trabajo.singleton;
 
-import org.hibernate.ReplicationMode;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import BBDD2.trabajo.hibernate.Hbutil;
-import BBDD2.trabajo.model.Master;
+import BBDD2.trabajo.beans.Master;
+import BBDD2.trabajo.dao.MasterDAO;
 
 public class MasterContainer {
 
@@ -19,25 +15,14 @@ public class MasterContainer {
 
 	public static MasterContainer getInstance(){
 		if (instance == null){
-			Session session = Hbutil.getSessionFactory().openSession();
-			Transaction tx = null;
-			try{
-				tx = session.beginTransaction();
-				long id = 1;
-				instance = new MasterContainer((Master)session.get(Master.class, id));
+			MasterDAO masterDao = DAOFactory.getMasterDAO();
+			instance = new MasterContainer(masterDao.get(1));
 				if (instance.getMaster() == null){
 					Master master = new Master();
 					master.setId(1);
 					instance = new MasterContainer(master);
-					session.replicate(master, ReplicationMode.EXCEPTION);
+					masterDao.save(master);
 				}
-				tx.commit();
-			}catch (Exception e){
-				e.printStackTrace();
-				if (tx != null)
-					tx.rollback();
-				session.close();
-			}
 		}
 		return instance;
 	}
