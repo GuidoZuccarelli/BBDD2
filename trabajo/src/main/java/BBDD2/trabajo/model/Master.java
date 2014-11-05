@@ -1,4 +1,4 @@
-package BBDD2.trabajo.beans;
+package BBDD2.trabajo.model;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -37,7 +37,7 @@ public class Master {
 		this.sites = sites;
 	}
 
-	public Master(){
+	public Master() {
 		this.carts = new HashSet<Cart>();
 		this.sites = new HashSet<Site>();
 	}
@@ -64,18 +64,19 @@ public class Master {
 
 	public boolean addSite(String name) {
 		for (Site site : this.sites)
-			if(site.getName().equals(name))
+			if (site.getName().equals(name))
 				return false;
 		sites.add(new Site(name));
 		return true;
 	}
+
 	public void addSites(HashSet<Site> sites) {
 		this.sites = sites;
 	}
 
-	public String getSiteToken(String name){
+	public String getSiteToken(String name) {
 		for (Site site : this.sites)
-			if(site.getName().equals(name)){
+			if (site.getName().equals(name)) {
 				return site.getToken();
 			}
 		throw new NoSuchElementException();
@@ -83,32 +84,31 @@ public class Master {
 
 	public void removeSite(String token) {
 		for (Site site : this.sites)
-			if(site.getToken().equals(token)){
+			if (site.getToken().equals(token)) {
 				this.sites.remove(site);
 				return;
 			}
 		throw new NoSuchElementException();
 	}
 
-	public Site getSite(String token){
+	public Site getSite(String token) {
 		for (Site site : this.sites)
-			if(site.getToken().equals(token))
+			if (site.getToken().equals(token))
 				return site;
 		throw new NoSuchElementException();
 	}
 
-	public String addCart(String token, String userId){
+	public String addCart(String token, String userId) {
 		Cart cart = new Cart(userId, this.getSite(token));
 		this.carts.add(cart);
 		return cart.getToken();
 	}
 
-
-	public Cart getCart(String token) throws TimeLimitExceededException{
+	public Cart getCart(String token) throws TimeLimitExceededException {
 		for (Cart cart : this.carts)
-			if(cart.getToken().equals(token))
-				if (cart.getCreationTime() < (System.currentTimeMillis()-timeLimit))
-						return cart;
+			if (cart.getToken().equals(token))
+				if (cart.getCreationTime() < (System.currentTimeMillis() - timeLimit))
+					return cart;
 				else
 					throw new TimeLimitExceededException();
 		throw new NoSuchElementException();
@@ -116,7 +116,7 @@ public class Master {
 
 	public void removeCart(String token) {
 		for (Cart cart : this.carts)
-			if(cart.getToken().equals(token)){
+			if (cart.getToken().equals(token)) {
 				this.carts.remove(cart);
 				return;
 			}

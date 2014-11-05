@@ -62,6 +62,6 @@ public class RestfulApiUnitTest {
 		get("/rest/carts/"+cartToken).then().assertThat().body("products", hasSize(1));
 		get("/rest/carts/"+cartToken+"/products/product2").then().assertThat().body("productid", equalTo("product2"));
 		Thread.sleep(120000-(System.currentTimeMillis() - time));
-		get("/rest/carts/"+cartToken).then().assertThat().body(equalTo("Token cart timeout exceed")).and().statusCode(408); //Try to continue using the cart after 2 minutes
+		get("/rest/carts/"+cartToken).then().assertThat().body(equalTo("Cart time limit exceed")).and().statusCode(403); //Try to continue using the cart after 2 minutes
 	}
 }

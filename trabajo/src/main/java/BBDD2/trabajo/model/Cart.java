@@ -1,4 +1,4 @@
-package BBDD2.trabajo.beans;
+package BBDD2.trabajo.model;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -9,14 +9,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Cart {
-	
+
 	private long id;
 	private String userId;
 	private String token;
 	private long creationTime;
 	private Set<Product> products;
 	private Site site;
-	
+
 	public long getId() {
 		return id;
 	}
@@ -60,7 +60,7 @@ public class Cart {
 	public void setCreationTime(long creationTime) {
 		this.creationTime = creationTime;
 	}
-	
+
 	public void setSite(Site site) {
 		this.site = site;
 	}
@@ -73,7 +73,7 @@ public class Cart {
 		this.products = new HashSet<Product>();
 		this.site = site;
 	}
-	
+
 	public Cart() {
 		super();
 		this.token = UUID.randomUUID().toString();
@@ -81,78 +81,78 @@ public class Cart {
 		this.products = new HashSet<Product>();
 	}
 
-	public boolean addProduct(String productId, double price){
+	public boolean addProduct(String productId, double price) {
 		for (Product product : this.products)
-			  if(product.getProductId().equals(productId))
-				  return false;
-		  products.add(new Product(productId, 1, price));
-		  return true;
-	}
-	
-	public void addProducts(Set<Product> products){
-		this.products = products;
-	}
-	
-	public Product getProduct(String productId){
-		for (Product product : this.products)
-			if(product.getProductId().equals(productId))
-				  return product;
-		throw new NoSuchElementException();
-	}
-	
-	public void deleteProduct(String productId) {
-		  for (Product product : this.products)
-			  if(product.getProductId().equals(productId)){
-				  this.products.remove(product);
-				  return;
-			  }
-		  throw new NoSuchElementException();
-	  }
-	
-	public void removeProduct(String productId, int quantity) {
-		  for (Product product : this.products)
-			  if(product.getProductId().equals(productId)){
-				  product.setQuantity(product.getQuantity()-quantity);
-				  return;
-			  }
-		  throw new NoSuchElementException();
-	  }
-	
-	public void updateProduct(String productId, int quantity, double price){
-		for (Product product : this.products)
-			  if(product.getProductId().equals(productId)){
-				  product.setQuantity(product.getQuantity()+quantity);
-				  product.setPrice(price);
-				  return;
-			  }
-		  throw new NoSuchElementException();
-	}
-	
-	public void updateProduct(String productId, int quantity){
-		for (Product product : this.products)
-			  if(product.getProductId().equals(productId)){
-				  product.setQuantity(product.getQuantity()+quantity);
-				  return;
-			  }
-		  throw new NoSuchElementException();
+			if (product.getProductId().equals(productId))
+				return false;
+		products.add(new Product(productId, 1, price));
+		return true;
 	}
 
-	public void updateProduct(String productId, double price){
-		for (Product product : this.products)
-			  if(product.getProductId().equals(productId)){
-				  product.setPrice(price);
-				  return;
-			  }
-		  throw new NoSuchElementException();
+	public void addProducts(Set<Product> products) {
+		this.products = products;
 	}
-	
-	public JSONObject toJSONObject(){
+
+	public Product getProduct(String productId) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId))
+				return product;
+		throw new NoSuchElementException();
+	}
+
+	public void deleteProduct(String productId) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId)) {
+				this.products.remove(product);
+				return;
+			}
+		throw new NoSuchElementException();
+	}
+
+	public void removeProduct(String productId, int quantity) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId)) {
+				product.setQuantity(product.getQuantity() - quantity);
+				return;
+			}
+		throw new NoSuchElementException();
+	}
+
+	public void updateProduct(String productId, int quantity, double price) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId)) {
+				product.setQuantity(product.getQuantity() + quantity);
+				product.setPrice(price);
+				return;
+			}
+		throw new NoSuchElementException();
+	}
+
+	public void updateProduct(String productId, int quantity) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId)) {
+				product.setQuantity(product.getQuantity() + quantity);
+				return;
+			}
+		throw new NoSuchElementException();
+	}
+
+	public void updateProduct(String productId, double price) {
+		for (Product product : this.products)
+			if (product.getProductId().equals(productId)) {
+				product.setPrice(price);
+				return;
+			}
+		throw new NoSuchElementException();
+	}
+
+	public JSONObject toJSONObject() {
 		JSONObject object = new JSONObject();
 		object.put("userid", this.userId);
 		object.put("siteurl", this.site.getName());
 		JSONArray products = new JSONArray();
 		double sum = 0;
-		for (Product product : this.products){
+		for (Product product : this.products) {
 			products.add(product.toJSONObject());
 			sum += product.getPrice();
 		}
