@@ -1,0 +1,255 @@
+***********************
+Creating
+***********************
+
+URL = /sites/{sitename}
+METHOD = POST
+"Creates a new site with name {sitename}"
+
+PATH PARAMS:
+sitename: The url of the site.
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+201 if the site was created succesfully
+412 if the sitename exists
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+URL = /sites/{sitetoken}/carts/{userid}
+METHOD = POST
+"Creates a new cart for the site {sitetoken} and user {userid}"
+
+PATH PARAMS:
+sitetoken: A token for a site
+userid: The id of an user
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+201 if the cart was created succesfully
+412 if the sitetoken is incorrect
+
+RETURNS: 
+String cartToken: "The token of the cart"
+
+---------------------------------------------------------------------------------------
+
+URL = /carts/{carttoken}/products/{productid}
+METHOD = POST
+"Adds a new product with id {productid} with quantity for the cart with token {carttoken}"
+
+PATH PARAMS
+carttoken: The token of the cart
+productid: The id of the product
+
+QUERY PARAMS: 
+price: "The price of the product"
+
+HTTP STATUS RESPONSES:
+201 if the product was created succesfully
+400 if the price query param is null
+401 if the price is negative
+402 if the carttoken is incorrect
+403 if the carttoken time limit expired
+412 if the product already exists in the car
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+***********************
+Accessing 
+***********************
+
+URL = /sites/{sitename}
+METHOD = GET
+"Asks for the token of the site {sitename}"
+
+PATH PARAMS:
+sitename: The url of the site.
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+200 if the sitename is correct
+400 if the sitename doesn't exists
+
+RETURNS: 
+String sitetoken: "The token of the site"
+
+---------------------------------------------------------------------------------------
+
+URL = /carts/{carttoken}
+METHOD = GET
+"Gets the list of products of the cart"
+
+PATH PARAMS:
+carrtoken: The token of the cart.
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+200 if the cart was returned successfully
+400 if the carrtoken is incorrect
+403 if the carttoken time limit expired
+
+RETURNS: 
+JSONObject cart: A JSON object with all the cart data
+
+---------------------------------------------------------------------------------------
+
+URL = /carts/{carttoken}/products/{productid}
+METHOD = GET
+"Looks for the information of the product {productid} in the cart with token {carttoken}"
+
+PATH PARAMS:
+carrtoken: The token of the cart.
+productid: The id of the product
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+200 if the product was returned successfully
+401 if the carrtoken is incorrect
+403 if the carttoken time limit expired
+
+RETURNS: 
+JSONObject product: A JSON object with the data of the product in the cart
+
+---------------------------------------------------------------------------------------
+
+***********************
+Modifying
+***********************
+
+URL = /carts/{carttoken}/products/{productid}
+METHOD = PUT
+"Changes the price and quantity of the product {productid} in the cart {carttoken}. By default (quantity and price are null) adds 1 to the product qunatity."
+
+PATH PARAMS:
+carrtoken: The token of the cart.
+productid: The id of the product.
+
+QUERY PARAMS:
+Double price: The new price of the product. If null the price doesn't change
+Integer quantity: The quantity of product to be added to the current. If null the quantity the be added is 0.
+
+HTTP STATUS RESPONSES:
+200 if the product was successfully modified
+401 if the price is negative
+402 if the carttoken is incorrect
+403 if the carttoken time limit expired
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+***********************
+Deleting
+***********************
+
+URL = /sites/{sitetoken}
+METHOD = DELETE
+"Delete the site with token {sitetoken}"
+
+PATH PARAMS:
+sitetoken: A token for a site
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+200 if the site was successfully deleted
+400 if the sitetoken is incorrect
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+URL = /carts/{carttoken}
+METHOD = DELETE
+"Removes the cart with token {carttoken}"
+
+PATH PARAMS:
+carttoken: A token for a cart
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+204 if the cart was successfully removed
+400 if the carttoken is incorrect
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+URL = /carts/{carttoken}/products/{productid}
+METHOD = DELETE
+"Removes the product {productid} from the cart with token {carttoken}"
+
+PATH PARAMS:
+carrtoken: The token of the cart.
+productid: The id of the product.
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+204 if the product was successfully removed
+400 if the carttoken is incorrect
+403 if the carttoken time limit expired
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+***********************
+Configuring
+***********************
+
+URL= /utils/time/{timeLimit}
+METHOD = PUT
+"Sets the cart token time limit to {timeLimit}"
+
+PATH PARAMS:
+timeLimit: The time to be set in millis
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+202
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+URL= /utils
+METHOD = POST
+"Creates a site with name "exampleSite" (for testing)"
+
+PATH PARAMS:-
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+202
+
+RETURNS: -
+
+---------------------------------------------------------------------------------------
+
+URL= /utils
+METHOD = DELETE
+"Clear the database (for testing)"
+
+PATH PARAMS:-
+
+QUERY PARAMS: -
+
+HTTP STATUS RESPONSES:
+202
+
+RETURNS: -
+
