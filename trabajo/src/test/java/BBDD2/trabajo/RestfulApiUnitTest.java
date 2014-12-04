@@ -15,9 +15,9 @@ public class RestfulApiUnitTest {
 	
 	@Before
 	public void setUp(){
-		post("/rest/utils");
-		exampleSiteToken = get("/rest/sites/exampleSite").asString();
-		put("/rest/utils/time/120000");
+		post("/rest/utils"); //creates the test new site
+		exampleSiteToken = get("/rest/sites/exampleSite").asString(); 
+		put("/rest/utils/time/120000"); //sets token time limit to 2 minutes
 	}
 	
 	@After
